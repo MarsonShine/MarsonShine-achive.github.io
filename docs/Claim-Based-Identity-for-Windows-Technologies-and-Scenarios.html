@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>Claim-Based Identity for Windows- Technologies and Scenarios.md</title><link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css'><style type='text/css'>html, body {overflow-x: initial !important;}html { font-size: 14px; }
+<title>Claim-Based Identity for Windows- Technologies and Scenarios.md</title><link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'><style type='text/css'>html, body {overflow-x: initial !important;}html { font-size: 14px; }
 body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1rem; line-height: 1.42857; color: rgb(51, 51, 51); overflow-x: hidden; background-color: rgb(255, 255, 255); }
 a:active, a:hover { outline: 0px; }
 .in-text-selection, ::selection { text-shadow: none; background: rgb(181, 214, 252); }
@@ -113,91 +113,80 @@ a.md-header-anchor.md-print-anchor { border: none !important; display: inline-bl
 .MathJax_SVG * { transition: none; }
 
 
-@font-face { font-family: 'PT Serif'; font-style: normal; font-weight: normal; src: local("PT Serif"), local("PTSerif-Regular"), url("file:///C:/Users/Administrator/AppData/Roaming/Typora/themes/newsprint/PT_Serif-Web-Regular.ttf"); }
-@font-face { font-family: 'PT Serif'; font-style: italic; font-weight: normal; src: local("PT Serif"), local("PTSerif-Italic"), url("file:///C:/Users/Administrator/AppData/Roaming/Typora/themes/newsprint/PT_Serif-Web-Italic.ttf"); }
-@font-face { font-family: 'PT Serif'; font-style: normal; font-weight: bold; src: local("PT Serif"), local("PTSerif-Bold"), url("file:///C:/Users/Administrator/AppData/Roaming/Typora/themes/newsprint/PT_Serif-Web-Bold.ttf"); }
-@font-face { font-family: 'PT Serif'; font-style: italic; font-weight: bold; src: local("PT Serif"), local("PTSerif-BoldItalic"), url("file:///C:/Users/Administrator/AppData/Roaming/Typora/themes/newsprint/PT_Serif-Web-BoldItalic.ttf"); }
+@font-face { font-family: 'Open Sans'; font-style: normal; font-weight: normal; src: local("Open Sans Regular"), url("file:///C:/Users/Administrator/AppData/Roaming/Typora/themes/github/400.woff") format("woff"); }
+@font-face { font-family: 'Open Sans'; font-style: italic; font-weight: normal; src: local("Open Sans Italic"), url("file:///C:/Users/Administrator/AppData/Roaming/Typora/themes/github/400i.woff") format("woff"); }
+@font-face { font-family: 'Open Sans'; font-style: normal; font-weight: bold; src: local("Open Sans Bold"), url("file:///C:/Users/Administrator/AppData/Roaming/Typora/themes/github/700.woff") format("woff"); }
+@font-face { font-family: 'Open Sans'; font-style: italic; font-weight: bold; src: local("Open Sans Bold Italic"), url("file:///C:/Users/Administrator/AppData/Roaming/Typora/themes/github/700i.woff") format("woff"); }
 html { font-size: 16px; }
-html, body { font-family: 'PT Serif', 'Times New Roman', Times; color: rgb(31, 9, 9); line-height: 1.5em; background-color: rgb(243, 242, 238); }
-#write { max-width: 36em; }
-ol, ul { list-style: none; }
-blockquote, q { quotes: none; }
-blockquote::before, blockquote::after, q::before, q::after { content: none; }
-table { border-collapse: collapse; border-spacing: 0px; }
-h1, h2, h3, h4, h5, h6 { font-weight: bold; }
-h1 { font-size: 1.875em; line-height: 1.6em; margin-top: 2em; }
-h2, h3 { font-size: 1.3125em; line-height: 1.15; margin-top: 2.28571em; margin-bottom: 1.15em; }
-h3 { font-weight: normal; }
-h4 { font-size: 1.125em; margin-top: 2.67em; }
-h5, h6 { font-size: 1em; }
-h1 { border-bottom-width: 1px; border-bottom-style: solid; margin-bottom: 1.875em; padding-bottom: 0.8125em; }
-a { text-decoration: none; color: rgb(6, 85, 136); }
-a:hover, a:active { text-decoration: underline; }
-p, blockquote, pre.md-fences, .md-fences { margin-bottom: 1.5em; }
-h1, h2, h3, h4, h5, h6 { margin-bottom: 1.5em; }
-blockquote { font-style: italic; border-left-width: 5px; border-left-style: solid; margin-left: 2em; padding-left: 1em; }
-ul, ol { margin: 0px 0px 1.5em 1.5em; }
-ol li { list-style-type: decimal; list-style-position: outside; }
-ul li { list-style-type: disc; list-style-position: outside; }
-.md-meta, .md-before, .md-after { color: rgb(153, 153, 153); }
-table { margin-bottom: 1.5em; font-size: 1em; }
-thead th, tfoot th { padding: 0.25em 0.25em 0.25em 0.4em; text-transform: uppercase; }
-th { text-align: left; }
-td { vertical-align: top; padding: 0.25em 0.25em 0.25em 0.4em; }
-code, pre.md-fences { padding-left: 1ch; padding-right: 1ch; background-color: rgb(218, 218, 218); }
-pre.md-fences { margin-left: 2em; margin-bottom: 3em; }
-.md-fences .CodeMirror.CodeMirror-wrap { top: -0.8em; }
-pre, code, tt { font-size: 0.875em; line-height: 1.71428em; }
-h1 { line-height: 1.3em; font-weight: normal; margin-bottom: 0.5em; }
-p + ul, p + ol { margin-top: -1em; }
-h3 + ul, h4 + ul, h5 + ul, h6 + ul, h3 + ol, h4 + ol, h5 + ol, h6 + ol { margin-top: 0.5em; }
-li > ul, li > ol { margin-top: inherit; }
-h2, h3 { margin-bottom: 0.75em; }
-hr { border-style: none none solid; border-color: initial; border-bottom-width: 1px; }
-h1 { border-color: rgb(197, 197, 197); }
-blockquote { border-color: rgb(186, 186, 186); color: rgb(101, 101, 101); }
-thead.md-table-edit { background-color: transparent; }
-thead { background-color: rgb(218, 218, 218); }
-tr:nth-child(2n) { background: rgb(232, 231, 231); }
-hr { border-color: rgb(197, 197, 197); }
-.task-list { padding-left: 1rem; }
-.task-list-item { padding-left: 1.5rem; list-style-type: none; }
-.task-list-item input::before { content: "√"; display: inline-block; width: 1.25rem; height: 1.5rem; vertical-align: middle; text-align: center; color: rgb(221, 221, 221); background-color: rgb(243, 242, 238); }
-.task-list-item input:checked::before, .task-list-item input[checked]::before { color: inherit; }
-#write pre.md-meta-block { min-height: 1.875rem; color: rgb(85, 85, 85); border: 0px; margin-left: 1em; margin-top: 1em; background: transparent; }
-.md-image > .md-meta { color: rgb(155, 81, 70); }
-.md-expand.md-image > .md-meta { background-color: rgba(255, 255, 255, 0.65098); }
-.md-image > .md-meta { font-family: Menlo, 'Ubuntu Mono', Consolas, 'Courier New', 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif; }
-#write > h3.md-focus::before { left: -2.5rem; color: rgb(153, 153, 153); border-color: rgb(153, 153, 153); }
-#write > h4.md-focus::before { left: -2.5rem; top: 0.25rem; color: rgb(153, 153, 153); border-color: rgb(153, 153, 153); }
-#write > h5.md-focus::before { left: -2.5rem; color: rgb(153, 153, 153); border-color: rgb(153, 153, 153); }
-#write > h6.md-focus::before { left: -2.5rem; top: 0.3125rem; color: rgb(153, 153, 153); border-color: rgb(153, 153, 153); }
-.md-toc:focus .md-toc-content { margin-top: 19px; }
-.md-toc-content:empty::before { color: rgb(6, 85, 136); }
-.md-toc-item { color: rgb(6, 85, 136); }
-#write div.md-toc-tooltip { background-color: rgb(243, 242, 238); }
-#outline-dropmenu { box-shadow: rgba(0, 0, 0, 0.372549) 0px 6px 12px; background-color: rgb(243, 242, 238); }
-.pin-outline #outline-dropmenu { box-shadow: none; border-right-width: 1px; border-right-style: dashed; background: inherit; }
-.pin-outline #outline-dropmenu:hover .outline-title-wrapper { border-left-width: 1px; border-left-style: dashed; }
-.outline-item:hover { border-left-width: 28px; border-left-style: solid; border-left-color: rgb(218, 218, 218); border-right-width: 18px; border-right-style: solid; border-right-color: rgb(218, 218, 218); background-color: rgb(218, 218, 218); }
-.typora-node .outline-item:hover { border-right-width: 28px; border-right-style: solid; border-right-color: rgb(218, 218, 218); }
-.outline-expander::before { content: ""; font-family: FontAwesome; font-size: 14px; top: 1px; }
-.outline-expander:hover::before, .outline-item-open > .outline-item > .outline-expander::before { content: ""; }
-.modal-content { background-color: rgb(243, 242, 238); }
-.auto-suggest-container ul li { list-style-type: none; }
-.megamenu-menu, #top-titlebar, #top-titlebar *, .megamenu-content { color: rgb(31, 9, 9); background: rgb(243, 242, 238); }
-.megamenu-menu-header { border-bottom-width: 1px; border-bottom-style: dashed; border-bottom-color: rgb(32, 43, 51); }
-.megamenu-menu { box-shadow: none; border-right-width: 1px; border-right-style: dashed; }
-header, .context-menu, .megamenu-content, footer { font-family: 'PT Serif', 'Times New Roman', Times; color: rgb(31, 9, 9); }
-#megamenu-back-btn { color: rgb(31, 9, 9); border-color: rgb(31, 9, 9); }
-.megamenu-menu-header #megamenu-menu-header-title::before { color: rgb(31, 9, 9); }
-.megamenu-menu-list li a:hover, .megamenu-menu-list li a.active { color: inherit; background-color: rgb(232, 231, 223); }
-.long-btn:hover { background-color: rgb(232, 231, 223); }
-#recent-file-panel tbody tr:nth-child(2n-1) { background-color: transparent !important; }
-.megamenu-menu-panel tbody tr:hover td:nth-child(2) { color: inherit; }
-.megamenu-menu-panel .btn { background-color: rgb(210, 209, 209); }
-.typora-sourceview-on #toggle-sourceview-btn, .show-word-count #footer-word-count { background: rgb(199, 197, 197); }
-#typora-quick-open { background-color: inherit; }
+body { font-family: 'Open Sans', 'Clear Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); line-height: 1.6; }
+#write { max-width: 800px; margin: 0px auto; padding: 20px 30px 40px; }
+#write::after { height: 80px; }
+#write > ul:first-child, #write > ol:first-child { margin-top: 30px; }
+body > :first-child { margin-top: 0px !important; }
+body > :last-child { margin-bottom: 0px !important; }
+a { color: rgb(65, 131, 196); }
+h1, h2, h3, h4, h5, h6 { position: relative; margin-top: 1rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.4; cursor: text; }
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor { text-decoration: none; }
+h1 tt, h1 code { font-size: inherit; }
+h2 tt, h2 code { font-size: inherit; }
+h3 tt, h3 code { font-size: inherit; }
+h4 tt, h4 code { font-size: inherit; }
+h5 tt, h5 code { font-size: inherit; }
+h6 tt, h6 code { font-size: inherit; }
+h1 { padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); }
+h2 { padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); }
+h3 { font-size: 1.5em; line-height: 1.43; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1em; }
+h6 { font-size: 1em; color: rgb(119, 119, 119); }
+p, blockquote, ul, ol, dl, table { margin: 0.8em 0px; }
+li > ol, li > ul { margin: 0px; }
+hr { height: 4px; padding: 0px; margin: 16px 0px; border-width: 0px 0px 1px; border-style: none none solid; overflow: hidden; box-sizing: content-box; border-bottom-color: rgb(221, 221, 221); background-color: rgb(231, 231, 231); }
+body > h2:first-child { margin-top: 0px; padding-top: 0px; }
+body > h1:first-child { margin-top: 0px; padding-top: 0px; }
+body > h1:first-child + h2 { margin-top: 0px; padding-top: 0px; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child { margin-top: 0px; padding-top: 0px; }
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 { margin-top: 0px; padding-top: 0px; }
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p { margin-top: 0px; }
+li p.first { display: inline-block; }
+ul, ol { padding-left: 30px; }
+ul:first-child, ol:first-child { margin-top: 0px; }
+ul:last-child, ol:last-child { margin-bottom: 0px; }
+blockquote { border-left-width: 4px; border-left-style: solid; border-left-color: rgb(221, 221, 221); padding: 0px 15px; color: rgb(119, 119, 119); }
+blockquote blockquote { padding-right: 0px; }
+table { padding: 0px; }
+table tr { border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 204, 204); margin: 0px; padding: 0px; background-color: white; }
+table tr:nth-child(2n) { background-color: rgb(248, 248, 248); }
+table tr th { font-weight: bold; border: 1px solid rgb(204, 204, 204); text-align: left; margin: 0px; padding: 6px 13px; }
+table tr td { border: 1px solid rgb(204, 204, 204); text-align: left; margin: 0px; padding: 6px 13px; }
+table tr th:first-child, table tr td:first-child { margin-top: 0px; }
+table tr th:last-child, table tr td:last-child { margin-bottom: 0px; }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); }
+pre.md-fences, .md-fences, code, tt { border: 1px solid rgb(221, 221, 221); border-radius: 3px; font-family: Consolas, 'Liberation Mono', Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; background-color: rgb(248, 248, 248); }
+pre.md-fences, .md-fences { margin-bottom: 15px; margin-top: 15px; padding: 8px 1em 6px; }
+.task-list { padding-left: 0px; }
+.task-list-item { padding-left: 32px; }
+.task-list-item input { top: 3px; left: 8px; }
+@media screen and (min-width: 914px) { 
+}
+@media print { 
+  html { font-size: 13px; }
+  table, pre { page-break-inside: avoid; }
+  pre { word-wrap: break-word; }
+}
+.md-fences { background-color: rgb(248, 248, 248); }
+#write pre.md-meta-block { padding: 1rem; font-size: 85%; line-height: 1.45; border: 0px; border-radius: 3px; color: rgb(119, 119, 119); margin-top: 0px !important; background-color: rgb(247, 247, 247); }
+.mathjax-block > .code-tooltip { bottom: 0.375rem; }
+#write > h3.md-focus::before { left: -1.5625rem; top: 0.375rem; }
+#write > h4.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+#write > h5.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+#write > h6.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+.md-image > .md-meta { border: 1px solid rgb(221, 221, 221); border-radius: 3px; font-family: Consolas, 'Liberation Mono', Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; color: inherit; background-color: rgb(248, 248, 248); }
+.md-tag { color: inherit; }
+.md-toc { margin-top: 20px; padding-bottom: 20px; }
+#typora-quick-open { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); }
+#typora-quick-open-item { border-color: rgb(254, 254, 254) rgb(229, 229, 229) rgb(229, 229, 229) rgb(238, 238, 238); border-style: solid; border-width: 1px; background-color: rgb(250, 250, 250); }
+.on-focus-mode blockquote { border-left-color: rgba(85, 85, 85, 0.117647); }
 
 
 
@@ -207,12 +196,12 @@ header, .context-menu, .megamenu-content, footer { font-family: 'PT Serif', 'Tim
 </style>
 </head>
 <body class='typora-export ' >
-<div  id='write'  class = 'is-node'><h1><a name='header-c17' class='md-header-anchor '></a>Claim-Based Identity for Windows: Technologies and Scenarios</h1><h2><a name='header-c19' class='md-header-anchor '></a>Active Diretory Federation Services 2.0</h2><h3><a name='header-c20' class='md-header-anchor '></a>基于申明（Claim-Based）的身份验证：场景介绍</h3><p>在开始使用基于申明（Cliam-Based）身份验证之前，首先得理解这个技术的基本原理。最好的方式就是通过例子来理解它是如何运作的。因此，本节将讨论一些不同的方法，这些方法可以在前面提及的云计算中使用，每个说明都使用了刚刚描述的Microsoft技术。</p><h4><a name='header-c23' class='md-header-anchor '></a>ON-Premises Scenrios（内部情景）</h4><p>Claim-Based首先是用来解决内部企业之间的问题。这项技术至今仍被广泛应用，所以我们有必要了解其内部场景。本节将举三个例子:</p><ul><li>访问一个STS提供者企业应用程序，所有用户都有相同的组织机构. </li><li>让我们来拓展情景1，在网页上访问这个企业应用程序，并且这些用户没有在规定的组织机构 </li><li>企业应用程序使用联合身份标识验证，其中一个组织的用户去访问应用程序中另一个组织的用户 </li></ul><h4><a name='header-c36' class='md-header-anchor '></a>Accessing an Enterprise Application（访问企业应用程序）</h4><p>现在大多数企业应用程序都扮演着身份验证提供者的角色，近乎每个企业必定会处理身份验证方面的问题。
+<div  id='write'  class = 'is-node'><h1><a name='header-c65' class='md-header-anchor '></a>Claim-Based Identity for Windows: Technologies and Scenarios</h1><h2><a name='header-c67' class='md-header-anchor '></a>Active Diretory Federation Services 2.0</h2><h3><a name='header-c68' class='md-header-anchor '></a>基于申明（Claim-Based）的身份验证：场景介绍</h3><p>在开始使用基于申明（Cliam-Based）身份验证之前，首先得理解这个技术的基本原理。最好的方式就是通过例子来理解它是如何运作的。因此，本节将讨论一些不同的方法，这些方法可以在前面提及的云计算中使用，每个说明都使用了刚刚描述的Microsoft技术。</p><h4><a name='header-c71' class='md-header-anchor '></a>ON-Premises Scenrios（本地情景）</h4><p>Claim-Based首先是用来解决内部企业之间的问题。这项技术至今仍被广泛应用，所以我们有必要了解其内部场景。本节将举三个例子:</p><ul><li>访问一个STS提供者企业应用程序，所有用户都有相同的组织机构. </li><li>让我们来拓展情景1，在网页上访问这个企业应用程序，并且这些用户没有在规定的组织机构 </li><li>企业应用程序使用联合身份标识验证，其中一个组织的用户去访问应用程序中另一个组织的用户 </li></ul><h4><a name='header-c84' class='md-header-anchor '></a>Accessing an Enterprise Application（访问企业应用程序）</h4><p>现在大多数企业应用程序都扮演着身份验证提供者的角色，近乎每个企业必定会处理身份验证方面的问题。
 那些运行在内部组织机构的应用程序的AD FS 2.0（Active Directory Federation Services）和 WIF（Windows Identity Foundation）为本地（on-premises）Claim-Based身份标识验证程序提供基础，下图说明了这些
 <img alt='企业可以使用ADFS2.0和WIF来支持基于声明的内部标识应用程序' src='http://images2017.cnblogs.com/blog/777295/201712/777295-20171219182600709-1649979651.png'></img>
 在这个例子中，一个用户使用ADFS登录，获得一个Kerberos ticket(step1)，然后用户访问用WIF构建的基于声明应用程序，尝试得到这个应用程序（STS）的信任(step2)。这个应用程序服务器只信任自己的企业，并且用户的浏览器和客户端从STS请求一个token，提供一个Kerberos ticket来对用户进行授权(step3)。ADFS2.0作为一个身份标识验证提供验证的STS，验证这个ticket然后在ADFS中查找这个需要新建一个请求Token的信息(step4)。确切的说，这个token中的声明信息依赖于请求应用程序的用户以及用户访问的应用程序——每一个应用程序都能表明所需要的申明信息。一旦token被创建，ADFS2.0 STS 就会把它回传到用户的客户端或者是浏览器(step5)，接着客户端就会提交这个token到WIF应用程序(step6).
 然后这个应用程序会用WIF验证token的签名信息以及使用户的声明信息有效(step7)。</p><p>基于声明的方法的一大优点值得在这里重新强调(re-emphasizing)：不需要去查询有关用户的信息，它可以将所有的信息都交给token。如果应用程序需要，比方说，用户的工作标题，它可以在它的要求声明列表中指定它。
-当STS给application创建token时，在ADFS中它会发现user的工作标题，并且插入到声明(Claim)中给application使用。没有这些，那么开发者必须编写自己的代码来从ADFS挖掘这些信息。基于声明的身份验证能够使开发者更加轻松。</p><h4><a name='header-c46' class='md-header-anchor '></a>通过Internet访问企业应用程序</h4><p>假设某个公司希望通过互联网使本地应用程序访问远端员工。有一种传统的解决方案是通过修改应用程序去接收用户名/密码去登录，同样也能用基于声明的方法来做到，应用程序无需做任何更改。如下图所示：
-<img alt=' 企业用ADFS2.0 STS通过在互联网新建一个token给用' src='http://images2017.cnblogs.com/blog/777295/201712/777295-20171219191218443-125057405.png'></img></p><p>在这里，用户在公司外的另一台计算机上。与之前一样，访问application得到sts授权(step1)。application同样也只信任自己企业，因此用户的浏览器或客户端请求来自该STS的一个令牌(token)。STS使用了ADFS2.0实现了STS验证用户并返回一个token(step2)。然后拿到token的用户浏览器或客户端提交给application(step3)。application依赖WIF包括使用Claims来验证token是否合法。</p><p>不需要让application针对不同的访问来实现不同的处理身份消息，基于声明的方法能解决这种情况，就像在公司内部的情况一样。当然，这也相当对的带来了一些复杂性。当在第二步获取token的时候，比如，STS如何验证自己的身份深吸呢？Kerberos tickets只在企业内部使用，在之前的图7说明，它们不会再网络上工作。而是用户在她的请求中附带username和password。这在微软的ADFS2.0中支持是可选的。由于在这个例子中，用户(User)是雇员，它们在ADFS中已经存在账户，所以毫无疑问的能登录。</p><p>但是，如果users他们不是雇员呢？假设application通过网络向客户公开。那么这种方法是否还能工作？答案当然是可以的。尽管它不是一个通用的选择，外部用户的信息也能存储在ADFS中，能被ADFS访问。</p><p>但是，尽管如此：如果在网络上，用户还是要需要user/password，那么claims-based方法还能很好的处理么？一个重要的改进是，<strong>它将每个应用程序从需要存储敏感密码信息的需要中解放出来</strong> 而不是将这些职责转移到更小的sts。所以，用户不在需要在每个application提交username/password，它会使这个&quot;世界&quot;更加简单化与安全。</p><h4><a name='header-c58' class='md-header-anchor '></a>在其他机构组织中为企业提供单点登录</h4><p>另一个相同的身份验证就是用户在一个组织中访问过application，那么在其他组织也能正常运行。例如，假设你公司希望做一个内部共享平台网站去给合作伙伴的员工访问。一种方式就是给他们每一个账户和密码并存到自己的公司系统中。这能行，但是方案不吸引人。那些员工不愿意单独去登录，并且你们公司自己的管理员也不愿意管理公司外部的人的用户信息。而且这个方案也存在安全隐患——你公司的管理员是如何知道这写用户何时会离开他的公司，那么他就应该注销账户。</p><p>一个好的解决方案就是让这些外部用户用他们自己的身份信息访问你们的系统。这个方案不在要求要新的账户去单独登录，还要要求什么呢，它需要在你们公司和合作伙伴公司建立一个关系。这样做需要两个组织之间达成某种商业协议，这方面超出本节讨论的范围，不展开说明。当然，还需要用正确的技术。</p><p>一种方法是配置</p></div>
+当STS给application创建token时，在ADFS中它会发现user的工作标题，并且插入到声明(Claim)中给application使用。没有这些，那么开发者必须编写自己的代码来从ADFS挖掘这些信息。基于声明的身份验证能够使开发者更加轻松。</p><h4><a name='header-c94' class='md-header-anchor '></a>通过Internet访问企业应用程序</h4><p>假设某个公司希望通过互联网使本地应用程序访问远端员工。有一种传统的解决方案是通过修改应用程序去接收用户名/密码去登录，同样也能用基于声明的方法来做到，应用程序无需做任何更改。如下图所示：
+<img alt=' 企业用ADFS2.0 STS通过在互联网新建一个token给用' src='http://images2017.cnblogs.com/blog/777295/201712/777295-20171219191218443-125057405.png'></img></p><p>在这里，用户在公司外的另一台计算机上。与之前一样，访问application得到sts授权(step1)。application同样也只信任自己企业，因此用户的浏览器或客户端请求来自该STS的一个令牌(token)。STS使用了ADFS2.0实现了STS验证用户并返回一个token(step2)。然后拿到token的用户浏览器或客户端提交给application(step3)。application依赖WIF包括使用Claims来验证token是否合法。</p><p>不需要让application针对不同的访问来实现不同的处理身份消息，基于声明的方法能解决这种情况，就像在公司内部的情况一样。当然，这也相当对的带来了一些复杂性。当在第二步获取token的时候，比如，STS如何验证自己的身份深吸呢？Kerberos tickets只在企业内部使用，在之前的图7说明，它们不会再网络上工作。而是用户在她的请求中附带username和password。这在微软的ADFS2.0中支持是可选的。由于在这个例子中，用户(User)是雇员，它们在ADFS中已经存在账户，所以毫无疑问的能登录。</p><p>但是，如果users他们不是雇员呢？假设application通过网络向客户公开。那么这种方法是否还能工作？答案当然是可以的。尽管它不是一个通用的选择，外部用户的信息也能存储在ADFS中，能被ADFS访问。</p><p>但是，尽管如此：如果在网络上，用户还是要需要user/password，那么claims-based方法还能很好的处理么？一个重要的改进是，<strong>它将每个应用程序从需要存储敏感密码信息的需要中解放出来</strong> 而不是将这些职责转移到更小的sts。所以，用户不在需要在每个application提交username/password，它会使这个&quot;世界&quot;更加简单化与安全。</p><h4><a name='header-c106' class='md-header-anchor '></a>在其他机构组织中为企业提供单点登录</h4><p>另一个相同的身份验证就是用户在一个组织中访问过application，那么在其他组织也能正常运行。例如，假设你公司希望做一个内部共享平台网站去给合作伙伴的员工访问。一种方式就是给他们每一个账户和密码并存到自己的公司系统中。这能行，但是方案不吸引人。那些员工不愿意单独去登录，并且你们公司自己的管理员也不愿意管理公司外部的人的用户信息。而且这个方案也存在安全隐患——你公司的管理员是如何知道这写用户何时会离开他的公司，那么他就应该注销账户。</p><p>一个好的解决方案就是让这些外部用户用他们自己的身份信息访问你们的系统。这个方案不在要求要新的账户去单独登录，还要要求什么呢，它需要在你们公司和合作伙伴公司建立一个关系。这样做需要两个组织之间达成某种商业协议，这方面超出本节讨论的范围，不展开说明。当然，还需要用正确的技术。</p><p>一种方法是配置运行在一个组织机构中的应用程序(application)信任另一个sts提供者。如图9所示<img src='https://marsonshine.github.io/images/image-9.png' alt='9' />	</p><p>在这个场景下，在X企业的用户访问Y企业的application应用程序，并且得到stss许可(step1)。在这里，这个应用程序被配置都信任自己的STS(一个是企业Y)和企业X的身份标识验证提供者STS。他们这些用户都被要求要在自己的STS申请token(step2)。然后提交给application(step3)。这个应用程序通过WIF验证用户的传过来的token以及包含的声明内容(Claims)，然后用他喜欢的方式去使用那些声明内容。</p><p>这个解决方案很好理解，但并不是没有任何问题。例如，假设此应用程序在多个不同的企业中有用户。那么根据上述描述的方法，这个应用程序将要配置信任每个企业(类似于配置白名单)，这明显非常繁琐。这就引出了另一个解决方案——联合身份标识验证(Federated Identity)。这意味着application要信任自己的STS，这为构建和管理此应用程序的人员生活变得简单。图10展示了具体细节。</p><p><img src='https://marsonshine.github.io/images/image-10.png' alt='10' />	</p><p>这个场景在最开始的时候跟之前是一样的：企业X的用户访问企业Y的应用程序Y并获得STS许可。然而，这次应用程序Y被配置只信任自己的STS，也就是企业Y。确定了这点，用户系统上的客户端或者浏览器就会联系企业Y中的STS，以了解它信任的STS(step2)。这里，STS扮演着联合身份提供者的角色，并且被配置信任企业X中的STS。因此，用户客户端或者浏览器请求一个来自企业XSTS中的Idp token(step3)，企业X中的STS是身份验证提供者的角色。</p><p>然而由于应用程序Y只信任自己的STS发布的token从而不会接受这个Idp token。相反，用户的浏览器或客户端将idp token提交给联合身份验证提供器STS Y(step4)。因为这个STSY是被配置过企业X入白名单的，企业Y的STS验证收到由企业X发出的token，然后验证通过发布一个FP token回传给用户并通知用户允许访问应用程序Y(step5)。用户向应用程序展示令牌(step6)，应用程序通过WIF验证这个token和Claims的准确信息。应用程序现在可以像往常一样使用这些声明(step7)。</p><p>注意在企业Y中联合身份提供器STS是转换声明的作用，接收STS X发布的token，然后生成一个自己的token。这个STS Y生成的token内容很可能跟收到的来自STS X的token不同——token Y可以自由添加，删除，修改声明。实际上，ADFS2.0为那些管理员为那些转换定义规则提供一个相当复杂的方式。甚至可以在必要的时候禁止发布令牌。</p><p>还要注意到application是如何方便的从token中直接获取它所需要的信息。当用户和application都在相同的组织时，ADFS还能访问用户，获取如用户工作标题等信息。而在不同组织企业下时，就像这种场景展示的一样，application大多数时候是不允许方法的。从用户的令牌中获取所需的一些信息都是非常好的。</p><p>还有最后一个问题值得讨论：上面的step2，联合提供器STS将用户的浏览器或客户端定向到身份提供器STS。但是如果联合提供者STS有多个信任的身份提供者，那么它是如何知道把用户的信息发送给那个身份提供者？伴随这个问题的的出现，这里有一些解决方案。第一，ADFS支持这个选项，向用户提供一份可能性列表，让它选择它认可的组织。另一个选择是让用户提供电子邮箱，然后让联合提供者从她的身份提供者的地址域名获知身份信息。无论如何，身份联合需要以某种方式解决这个问题（这里很绕口，不知道怎么翻译，故原文如下：</p><p><em>One option, which AD FS 2.0 supports, is to present the user with a list of possibilities, letting her choose the one she recognizes as her own organization. Another option is to have the user provide her email address, then let the federation provider STS infer her identity provider from the address’s domain name. However it’s done, using identity federation typically requires solving this problem in some way.</em></p><p></p><h4><a name='header-c263' class='md-header-anchor '></a>云场景</h4><p>未完待续......</p></div>
 </body>
 </html>
