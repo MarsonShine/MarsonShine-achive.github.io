@@ -6,9 +6,9 @@
 
 退后一步讲，一个很好的问题是为什么在 ASP.NET Core 中移除 `AspNetSynchronizationContext`。微软开发团队内部是怎么讨论的我不知道，我想了有两个理由：性能和简单化。第一个方面就是考虑性能。
 
-当一个异步处理程序在 ASP.NET 恢复执行时，延续会被排队到请求上下文。这个延续必须等待其他已经排队过的延续任务（也许一次只运行一个）。当它准备运行时，一个线程池线程被消费，进入到请求上下文，并且恢复处理程序执行。“重新请求” 这个请求上下文涉及到很多内部工作，例如设置 `HttpContext.Current` 和当前线程身份以及文化信息。
+当一个异步处理程序在 ASP.NET 恢复执行时，接着会入队列到请求上下文。然后它又必须等待其他之前已经入队列的延续任务完成（一次只运行一个）。当它准备运行时，一个线程池线程被消费，进入到请求上下文，并且恢复执行处理程序。“重复入队列” 这个请求上下文会涉及到很多内部工作，例如设置 `HttpContext.Current` 和当前线程身份以及文化信息。
 
-使用无上下文 ASP.NET Core 方法，当异步处理程序恢复执行时，一个从线程池产生的线程会继续执行。这个上下文会避免排队，并且不需要 “进入” 请求上下文。另外，`async / await` 机制在无上下文场景下进行了高度优化。异步请求只需要做更少的工作。
+使用无上下文 ASP.NET Core 方法，当异步处理程序恢复执行时，一个从线程池产生的线程会继续执行。这个上下文会避免排队，请求上下文避免了重复进入队列 。另外，`async / await` 机制在无上下文场景下进行了高度优化。异步请求只需要做更少的工作。
 
 简单是这个决定（无上下文化）的另一个方面。`AspNetSynchronizationContext` 工作的很好，但是这里还有一些棘手的部分，尤其是在[身份验证管理方面](http://www.hanselman.com/blog/SystemThreadingThreadCurrentPrincipalVsSystemWebHttpContextCurrentUserOrWhyFormsAuthenticationCanBeSubtle.aspx)。
 
@@ -18,7 +18,9 @@ OK，所以这里没有 `SynchronizationContext`。那么对于开发者意味�
 
 首先也是最明显的结果就是，await 没有捕获上下文。这也意味着[阻塞异步代码将不会引起死锁](https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html)。你可以使用 `Task.GetAwaiter().GetResult()` （或者是 `Task.Wait` 或者是 `Task<T>.Result`）都不惧死锁。
 
-然而，你不应该这么做。因为在你的异步代码被阻塞的时候，你正在放弃异步代码带来的每一个好处。一旦阻塞线程，异步处理程序的增强可伸缩性就会被取消。在 ASP.NET 场景里还有两个是需要阻塞，这是不幸的：ASP.NET MVC 过滤器以及子控制器。然而，在 ASP.NET Core 中，整个管道都是完整的异步；包括过滤器以及组件的展示都是异步的。
+然而，你不应该这么做。因为在你的异步代码被阻塞的时候，你正在放弃异步代码带来的每一个好处。一旦阻塞线程，异步处理程序的增强可伸缩性就会无效。
+
+然而，不幸的是，在 ASP.NET 场景里还遗留两个同步操作：ASP.NET MVC 过滤器以及子控制器。然而，在 ASP.NET Core 中，整个管道都是完整的异步；包括过滤器以及组件的展示都是异步的。
 
 总之，你应该尽量的在所有地方都使用 async；但是如果你需要，你可以不顾危险的阻塞它。
 
@@ -55,7 +57,7 @@ async Task GetOneAsync(List<string> result,string url)
 }
 ```
 
-其中 `result.Add(data)` 这行只能狗一次只一个线程执行，因为它是在请求上下文中执行的。
+其中 `result.Add(data)` 这行只能够一次只一个线程执行，因为它是在请求上下文中执行的。
 
 然而，这段相同的代码在 ASP.NET Core 是不安全的；特别要指出的是，`result.Add(data)` 这行可能一次被两个线程执行，在没有保护共享的变量 `List<string>` 的情况下。
 
