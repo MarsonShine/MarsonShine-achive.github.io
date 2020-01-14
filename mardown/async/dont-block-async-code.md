@@ -48,11 +48,11 @@ public static async Task<JObject> GetJsonAsync(Uri uri)
 
 public class MyController : ApiController
 {
-	public string Get()
-	{
-		var jsonToken = GetStringAsync(...);
-		return jsonToken.Result.ToString();
-	}
+    public string Get()
+    {
+        var jsonToken = GetJsonAsync(...);
+        return jsonToken.Result.ToString();
+    }
 }
 ```
 
@@ -67,13 +67,13 @@ public class MyController : ApiController
 那么这里到底发生了什么呢？让我们回到最高层的方法（Botton1_Click 无论 UI 还是控制器）：
 
 1. 最上层方法（调用层）调用 GetJsonAsync（在 UI/ASP.NET 上下文中）
-2. GetJsonAsync 开始通过调用 HttpClient.GetStringAsync 开始 REST 请求（任然在 UI/ASP.NET 上下文中）
+2. GetJsonAsync 开始通过调用 HttpClient.GetStringAsync 开始 REST 请求（仍然在 UI/ASP.NET 上下文中）
 3. GetStringAsync 返回一个未完成的 Task，表明这个 REST 请求还未完成。
-4. GetJsonAsync 通过等待 GetStringAsync 返回结果。这个上下文会被捕捉到并且会在 GetJsonAsync 方法之后继续沿用。GetStringAsync 返回一个未完成的任务。表示 GetJsonAsync 方法还未完成。
+4. GetJsonAsync 通过等待 GetStringAsync 返回结果。这个上下文会被捕捉到并且会在 GetJsonAsync 方法之后继续沿用。GetJsonAsync 返回一个未完成的任务，这表示 GetJsonAsync 方法还未完成。
 5. 最上层方法在 GetJsonAsync 返回的任务上同步阻塞。这会阻塞上下文线程。
-6. 最终，REST 请求将会完成。这个已经完成的任务将会被 GetStringAsync 返回。
-7. GetJsonAsync 就会准备延续继续执行，并且要等待上下文直到可用，以至于它能在上下文中执行。
-8. 死锁。调用层方法正在阻塞上下文线程，正在等待 GetJsonAsync 完成并且 GetJsonAsync 正在等待上下文释放它才能完成。
+6. 最终，REST 请求将会完成。这个已经完成的任务通过 GetStringAsync 返回。
+7. GetJsonAsync 就会准备延续继续执行，并且要等待上下文直到可用，这样它才能在这个上下文中继续执行。
+8. 发生死锁。调用层方法正在阻塞上下文线程，并正在等待 GetJsonAsync 完成，而 GetJsonAsync 正在等待这个上下文释放它才能完成。
 
 对于 UI 这个例子，上下文是 UI 上下文；对于 ASP.NET 例子，上下文是 ASP.NET 请求上下文。导致这个死锁的都是上下文。
 

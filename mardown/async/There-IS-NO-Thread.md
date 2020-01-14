@@ -42,7 +42,7 @@ private async void Button_Click(object sender, RoutedEventArgs s)
 
 ![](../../images/Os1.png)
 
-本质核心就在这里：设备驱动程序正在处理 IRP 时是不会允许阻塞的。也就是说**如果 IRP 不能马上完成，那么它必须要异步处理**。甚至是同步 API 也是如此！在设备驱动程序级别，所以的请求（重要的）都是异步的。
+本质核心就在这里：设备驱动程序正在处理 IRP 时是不会允许阻塞的。也就是说**如果 IRP 不能马上完成，那么它必须要异步处理**。甚至是同步 API 也是如此！在设备驱动程序级别，所有的请求（重要的）都是异步的。
 
 > 这里引用了 [Tomes](http://www.amazon.com/gp/product/0735648735/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0735648735&linkCode=as2&tag=stepheclearys-20) 的[知识](http://www.amazon.com/gp/product/0735665877/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0735665877&linkCode=as2&tag=stepheclearys-20)，“无论I/O请求的类型如何，在内部，代表应用程序向驱动程序发出的I/O操作都是异步执行的”
 
@@ -50,19 +50,19 @@ private async void Button_Click(object sender, RoutedEventArgs s)
 
 我们跟着请求继续往下走，现在到达了设备的物理层
 
-现在写操作正在进行。那么有多少线程证处理它呢？
+现在写操作正在进行。那么有多少线程正处理它呢？
 
 没有。
 
-这里没有设备驱动程序线程，OS 线程，库（BCL）线程，或者是线程池线程操作写操作。**这里没有线程**。
+这里没有设备驱动程序线程、OS 线程、库（BCL）线程或者是线程池线程操作写操作。**这里没有线程**。
 
 现在我们来跟着从来自内核的相应回到最初的世界。
 
 在开始写请求之后的一段时间，设备完成了写操作。它会以中断的方式来通知 CPU。
 
-设备驱动程序的中断服务程序（ISR(Interrupt Service Routine) ）响应中断。这个中断是 CPU 级别的事件，无论哪个线程正在运行都会临时的抢占 CPU 的控制权。你可以认为 ISR 是在“借”当前正在运行的线程，但是我更倾向于 ISR 运行时的级别非常低，以至于不存在“线程”的概念。可以这么说，他们都在所有线程之下进来的。
+设备驱动程序的中断服务程序（ISR(Interrupt Service Routine) ）响应中断。这个中断是 CPU 级别的事件，无论哪个线程正在运行都会临时的抢占 CPU 的控制权。你可以认为 ISR 是在“借”当前正在运行的线程，但是我更倾向于 ISR 运行时的级别非常低，以至于不存在“线程”的概念。可以这么说，它们在所有线程之下进来的。
 
-不管怎样，ISR 正确写完了，完了它会告诉设备程序 “谢谢你的中断” 并且进入 DPC（Deffered Procedure Call） 队列（延迟过程调用）
+不管怎样，ISR 正确写完了，完了它会通知设备程序 “谢谢你的中断” 并且进入 DPC（Deffered Procedure Call） 队列（延迟过程调用）
 
 当 CPU 被中断干扰时，它将会到达 DPCs。DPCs 也会执行在一个很低的级别以至于说它是一个线程是不正确的；就像 ISRs，DPCs 直接在 CPU 上运行，在线程系统之下。
 
