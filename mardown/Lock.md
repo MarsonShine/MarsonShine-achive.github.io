@@ -126,7 +126,105 @@ UPDATE Table_Name SET Itemname = @itemName WHERE ItemName = @oldItemName
 
 ## 更新锁
 
-其他锁都很好理解；唯独更新锁让人很迷惑，因为它是混合锁。在更新之前，我们会多次读取记录。那么在读期间锁是共享的，并且当实际更新的时候我们将会获得一个互斥锁。更新锁更多时候是瞬时锁。
+其他锁都很好理解；唯独更新锁让人很迷惑，因为它是混合锁。在更新之前，我们会多次读取记录。**那么在读期间锁是共享的**，并且当**实际更新的时候我们将会获得一个互斥锁**。更新锁更多时候是瞬时锁。
+
+## 不同隔离级别的类型有什么不同，什么时候使用
+
+这里列出了四种事务隔离锁，下面列出简单的一个表格来展示何时使用
+
+| 隔离级别       | 读                 | 更新   | 插入   |
+| -------------- | ------------------ | ------ | ------ |
+| 读未提交       | 读取还未提交的数据 | 允许   | 允许   |
+| 读提交（默认） | 读取已经提交的数据 | 允许   | 允许   |
+| 重复读         | 重复读取提交的数据 | 不允许 | 允许   |
+| 序列化         | 读取已经提交的数据 | 不允许 | 不允许 |
+
+## 如何指定隔离级别
+
+隔离级别是传统关系型数据库软件的一种特性，换句话说它们是属于 SQL 而不是 Ado.NET，EF 或 Linq。你可以在所有组件中设置隔离级别。
+
+运行过程：
+
+UI -> 中间层 -> 数据访问层 -> 数据库
+
+### 中间层（Middle tier）
+
+在这里你可以使用事务域对象设置隔离级别（Transaction，EF，Linq）。
+
+```c#
+TransactionOptions TransOpt = new TransactionOptions();
+TransOpt.IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted; 
+using(TransactionScope scope = new 
+TransactionScope(TransactionScopeOption.Required, TransOptions))
+{
+
+}
+```
+
+### 数据访问层（Ado.NET）
+
+你可以使用用 Ado.NET 中的对象 SqlTransaction 指定隔离级别。
+
+```c#
+SqlTransaction objtransaction = 
+objConnection.BeginTransaction(System.Data.IsolationLevel.Serializable);
+```
+
+### 数据库
+
+你也可以直接在数据库中设置隔离级别，用 T-SQL 代码如下：
+
+```sql
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+```
+
+## 哪一种隔离级别能解决并发冲突问题
+
+下面的表显示了每个隔离级别解决的问题
+
+|          | 提交读 | 可重复读 | 序列化 | 未提交时读 |
+| -------- | ------ | -------- | ------ | ---------- |
+| 脏读     | 解决   | 解决     | 解决   | X          |
+| 更新丢失 | X      | 解决     | 解决   | X          |
+| 可重复读 | X      | 解决     | 解决   | X          |
+| 幻读     | X      | X        | 解决   | X          |
+
+## Read Committed 如何解决脏读问题
+
+关于 read committed 有一些重要的关键点：
+
+- 这是 SQL 默认的事务隔离级别
+- 它之后在提交数据时读取数据。换句话说任何没有提交的数据，是无法读取的。只有等到它提交了才可以读取。下图暂时了其中的细节
+
+![](../images/13.png)
+
+这里我解释一下，假使有两个事务要在同时执行：
+
+1. 事务 1 `Update customer set customerName = 'changed' where customerCode = '1001'`,这个事务开启的默认隔离级别 read commited
+2. 事务 2 `select * from customer where customerCode = '1001'`
+
+事务 2 的查询会被堵塞，知道事务 1 提交数据之后才允许 事务 2 读取数据。
+
+## read uncommitted 又是什么样的
+
+如果你设置隔离级别为 read uncommitted ，这里有一些关键点：
+
+- 未提交是很有可能看到脏数据的。
+- 无锁
+- 当锁不重要时是很有用的，特别是注重高吞吐和并发的时候。
+
+## 如何用 repeatable read 解决更新丢失和不可重复读
+
+设置隔离级别为 repeatable read ，没有人可以读取和更新数据。下面是关于 repeatable read 的一些关键点：
+
+- 对于设置查询语句的事务隔离级别为 repeatable read，只有提交后数据是可读的
+- 当你查询一个记录用 repeatable read 隔离级别，那么其他事务无法更新记录。但是查询是可以的。
+- 如果 repeatable read 是设置在更新语句上，同样在这个事务完成之前是不会有其他事务更新或查询的
+- 当你设置了更新和查询都是 repeatable read，其他事务是能够添加新记录的，那么这样就产生幻读了。
+
+## Serialize 隔离级别
+
+这个是最高级别的锁，只有占有它，其他事务在同一时刻无法同时运行。
 
 
 
