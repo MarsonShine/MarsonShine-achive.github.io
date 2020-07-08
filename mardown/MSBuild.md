@@ -146,6 +146,20 @@ msbuild /p:CustomBeforeMicrosoftCommonTargets="C:\build\config\Custom.Before.Mic
 >
 > Visual Studio 使用自定义的 `.targets` 和 `.props` 文件，如果它在 MSBuild 文件夹发现这些文件，这时就会构建所有匹配的项目类型。这可能会产生意想不到的后果，并且其行为是不正确的，你可以在你的计算机上禁止 Visual Studio 的这种功能。
 
+## MSBuild 最佳实践
+
+默认属性值最好是通过使用条件属性 `Condition` 来处理，并且不要通过声明一个属性，这个属性的默认值能被命令行覆盖。如
+
+```xml
+<PyProperty Condition="'$(MyProperty)' == ''">
+    MyDefaultValue
+</PyProperty>
+```
+
+一般情况下要避免使用通配符来选择项。而应该显式的指定文件。这是因为在大多数项目类型中，MSBuild 在各个时间拓展通配符，比如当添加或删除项的时候，它能导致出人意料的行为。一个例外就是在 .NET Core SDK-风格项目，它能正确的处理通配符
+
+
+
 ## 自定义 C++ 构建
 
 略
