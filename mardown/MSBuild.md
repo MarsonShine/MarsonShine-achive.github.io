@@ -90,3 +90,70 @@ $(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\{TargetFileName}\ImportAfter\*.t
 之后，按约定允许已安装的 SDKs 增加常用的项目类型。
 
 在 `$(MSBuildUserExtensionsPath)` 中查找相同的文件结构，它是每个用户的文件 %LOCALPPDATA\Microsoft\MSBuild。对于在该用户凭据下运行的相应的项目类型的所有构建，将导入该文件夹中的文件。在模式 `ImportUserLocationsByWildcardBefore{ImportingFileNameWithNoDots}` 中导入文件之后。通过属性命名来禁用用户拓展。例如，设置 `ImportUserLocationsByWildcardBeforeMicrosoftCommonProps` 为 `false`，这将会阻止导入 `$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Imports\Microsoft.Common.props\Import Before\*`
+
+## 自定义解决方案构建
+
+> 重点⚠️
+>
+> 自定义解决方案构建只能在 MSBuild.exe 之上使用命令行。它无法应用于 Visual Studio 构建。因此，不推荐在解决方案级别用自定义构建。好的做法是在解决方案中所有项目使用自定义的 Directory.Build.props 和 Directory.Build.targets 文件，像在这篇讨论的一样。
+
+当 MSBuild 构建一个解决方案文件时，首先它会转为内部的项目文件并构建。这个生成的项目文件就会导入 `before.{solutionname}.sln.targets` 之前定义 target，以及在导入 targets 之后定义所有的目标节点 `after.{solutionname}.sln.targets`，包括已经安装到 `$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportBefore` 的 targets 和 `$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportAfter` 的文件目录。
+
+例如，你可以通过在相同的文件夹中创建一个名为 “after.MyCustomizedSolution.sln.targets” 的文件在 MyCustomizedSolution.sln 构建之后添加新的 target 来编写自定义日志消息
+
+```xml
+<Project>
+	<Target Name="EmitCustomMessage" AfterTargets="Build">
+        <Message Importance="High" Text="The solution has completed the Build target" />
+    </Target>
+</Project>
+```
+
+解决方案生成与项目生成是独立的，所以在这里设置对项目来说是没效果的。
+
+## 自定义所有的 .NET 构建
+
+当维护一个构建服务的时候，你可以配置 MSBuild 设置项，配置全局的构建。原则上，你可以修改全局的 Microsoft.Common.props 或 Microsoft.Common.targets，但是还有更好的方式。你可以通过 MSBuild 主要属性来影响某些项目（比如 C# 项目）的所有的构建程序，以及添加一些自定义的 `.targets` 和 `.props` 文件。
+
+通过安装 MSBuild 或 Visual Studio 管理构建来影响所有的 C# 或 Visual Basic 构建，创建一个文件 `Custom.Before.Microsoft.Common.Targets` 或 `Custom.After.Microsoft.Common.Targets`, 这些将会在 `Microsoft.Common.Target` 之前或之后运行，或者一个 `Custom.Before.Microsoft.Common.Props` 或 `Custom.After.Microsoft.Common.Props` 文件使用属性在 *Microsoft.Common.props*. 之前或之后处理。
+
+你可以通过使用下面的 MSBuild 属性指定这些文件：
+
+- CustomBeforeMicrosoftCommonProps
+- CustomBeforeMicrosoftCommonTargets
+- CustomAfterMicrosoftCommonProps
+- CustomAfterMicrosoftCommonTargets
+- CustomBeforeMicrosoftCSharpProps
+- CustomBeforeMicrosoftVisualBasicProps
+- CustomAfterMicrosoftCSharpProps
+- CustomAfterMicrosoftVisualBasicProps
+- CustomBeforeMicrosoftCSharpTargets
+- CustomBeforeMicrosoftVisualBasicTargets
+- CustomAfterMicrosoftCSharpTargets
+- CustomAfterMicrosoftVisualBasicTargets
+
+其中 *Common* 版本的这些属性都能影响 C# 和 Visual Basic 项目。你可以在 MSBuild 命令中设置这些属性。
+
+```cmd
+msbuild /p:CustomBeforeMicrosoftCommonTargets="C:\build\config\Custom.Before.Microsoft.Common.Targets" MyProject.csproj
+```
+
+最好是依赖于你自己的场景。使用 Visual Studio 拓展，你可以自定义构建系统以及提供一个安装和管理定制化机制。
+
+如果你专注构建服务器并且想确保那些 targets 总能在服务器上所有的合适的项目类型上运行构建，然后使用一个全局的自定义 `.targets` 或 `props` 文件是有意义的。如果你想自定义的 targets 只作用在符合某个条件的运行，可以通过在 MSBuild 命令行按需设置合适的 MSBuild 属性，这样就使用其他的文件定位并为文件设置路劲。
+
+> 警告⚠️
+>
+> Visual Studio 使用自定义的 `.targets` 和 `.props` 文件，如果它在 MSBuild 文件夹发现这些文件，这时就会构建所有匹配的项目类型。这可能会产生意想不到的后果，并且其行为是不正确的，你可以在你的计算机上禁止 Visual Studio 的这种功能。
+
+## 自定义 C++ 构建
+
+略
+
+## 自定义所有 C++ 构建
+
+略
+
+
+
+翻译自：https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2019#customize-the-solution-build
